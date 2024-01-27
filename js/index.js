@@ -1,7 +1,7 @@
 const productos = [
     {
         id: "producto-01",
-        titulo: "producto 01",
+        titulo: "Beat Type Dance",
         imagen:"./assets/img/BeatTypeDance.jpg",
         categoria: {
             nombre:"Instrumentales",
@@ -11,7 +11,7 @@ const productos = [
     },
     {
         id: "producto-02",
-        titulo: "producto 02",
+        titulo: "Beat Type House",
         imagen:"./assets/img/BeatTypeHouse.jpg",
         categoria: {
             nombre:"Instrumentales",
@@ -21,7 +21,7 @@ const productos = [
     },
     {
         id: "producto-03",
-        titulo: "producto 03",
+        titulo: "BeatTypePop",
         imagen:"./assets/img/BeatTypePop.jpg",
         categoria: {
             nombre:"Instrumentales",
@@ -31,7 +31,7 @@ const productos = [
     },
     {
         id: "producto-04",
-        titulo: "producto 04",
+        titulo: "Beat Type Rap",
         imagen:"./assets/img/BeatTypeRap.jpg",
         categoria: {
             nombre:"Instrumentales",
@@ -41,7 +41,7 @@ const productos = [
     },
     {
         id: "producto-05",
-        titulo: "producto 05",
+        titulo: "Beat Type Regeton",
         imagen:"./assets/img/BeatTypeRegeton.jpg",
         categoria: {
             nombre:"Instrumentales",
@@ -51,7 +51,7 @@ const productos = [
     },
     {
         id: "producto-06",
-        titulo: "producto 06",
+        titulo: "Beat Type Rock",
         imagen:"./assets/img/BeatTypeRock.jpg",
         categoria: {
             nombre:"Instrumentales",
@@ -61,7 +61,7 @@ const productos = [
     },
     {
         id: "producto-07",
-        titulo: "producto 07",
+        titulo: "Master",
         imagen:"./assets/img/Master.jpg",
         categoria: {
             nombre:"Producciones",
@@ -71,7 +71,7 @@ const productos = [
     },
     {
         id: "producto-08",
-        titulo: "producto 08",
+        titulo: "Promocion",
         imagen:"./assets/img/Promocion.jpg",
         categoria: {
             nombre:"Promociones",
@@ -81,7 +81,7 @@ const productos = [
     },
     {
         id: "producto-09",
-        titulo: "producto 09",
+        titulo: "Recording",
         imagen:"./assets/img/Recording.jpg",
         categoria: {
             nombre:"Producciones",
@@ -91,7 +91,7 @@ const productos = [
     },
     {
         id: "producto-10",
-        titulo: "producto 10",
+            titulo: "SoundKit Drums",
         imagen:"./assets/img/SoundKitDrums.jpg",
         categoria: {
             nombre:"Soundkit",
@@ -101,7 +101,7 @@ const productos = [
     },
     {
         id: "producto-11",
-        titulo: "producto 11",
+        titulo: "Soundkit Guitar",
         imagen:"./assets/img/SoundKitGuitar.jpg",
         categoria: {
             nombre:"Soundkit",
@@ -111,7 +111,7 @@ const productos = [
     },
     {
         id: "producto-12",
-        titulo: "producto 12",
+        titulo: "Soundkit Synthe",
         imagen:"./assets/img/SoundKitSynthe.jpg",
         categoria: {
             nombre:"Soundkit",
@@ -121,7 +121,7 @@ const productos = [
     },
     {
         id: "producto-13",
-        titulo: "producto 13",
+        titulo: "Soundkit Viento",
         imagen:"./assets/img/SoundKitViento.jpg",
         categoria: {
             nombre:"Soundkit",
@@ -156,7 +156,6 @@ function cargarProductos(productosElegidos) {
         contenedorProductos.append(div)
     })
     actualizarBotonesAgregar();
-    console.log(botonesAgregar);
 }
 cargarProductos(productos);
 
@@ -166,21 +165,21 @@ botonesCategorias.forEach(boton => {
         botonesCategorias.forEach(boton => boton.classList.remove("active"));
         e.currentTarget.classList.add("active");
         
-        if(e.currentTarget.id != "todos") {
+        if (e.currentTarget.id != "todos") {
             const productoCategoria = productos.find(producto => producto.categoria.id === e.currentTarget.id);  
-            tituloPrincipal.innetText = productoCategoria.nombre;
-
-            const productosBoton = productos.filter(producto => producto.categoria.id === e.currentTarget.id)
+            tituloPrincipal.innerText = productoCategoria.categoria.nombre;
+            console.log(productoCategoria);
+        
+            const productosBoton = productos.filter(producto => producto.categoria.id === e.currentTarget.id);
             cargarProductos(productosBoton);
         } else {
-            tituloPrincipal.innetText = "Todos los productos";
+            tituloPrincipal.innerText = "Todos los productos";
             cargarProductos(productos);
         }
         
-        cargarProductos(productos);
     })
 });
-console.log(botonesAgregar);
+
 
 function actualizarBotonesAgregar(){
     botonesAgregar = document.querySelectorAll(".producto-agregar");
@@ -189,7 +188,19 @@ function actualizarBotonesAgregar(){
         boton.addEventListener("click", agregarAlCarrito);
     });
 }
-const productosEnCarrito = [];
+let productosEnCarrito;
+
+const productosEnCarritoLS = JSON.parse(localStorage.getItem("productos-en-carrito"));
+
+if (productosEnCarritoLS) {
+    productosEnCarrito = productosEnCarritoLS;
+    actualizarNumerito();
+} else {
+    productosEnCarrito = [];
+}
+
+
+
 function agregarAlCarrito(e){
     const idBoton = e.currentTarget.id;
     const productoAgregado = productos.find( producto => producto.id === idBoton);
@@ -197,7 +208,7 @@ function agregarAlCarrito(e){
     if(productosEnCarrito.some(producto => producto.id === idBoton)){
         const index = productosEnCarrito.findIndex(producto => producto.id === idBoton);
         productosEnCarrito[index].cantidad++;
-    } else {
+} else {
         productoAgregado.cantidad = 1;
         productosEnCarrito.push(productoAgregado);
     }
@@ -207,4 +218,5 @@ function agregarAlCarrito(e){
 function actualizarNumerito(){
     let nuevoNumerito = productosEnCarrito.reduce((acc, producto) => acc + producto.cantidad, 0);
     numerito.innerText = nuevoNumerito;
+    console.log(numerito);
 }
