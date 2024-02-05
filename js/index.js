@@ -1,136 +1,11 @@
-const productos = [
-    {
-        id: "producto-01",
-        titulo: "Beat Type Dance",
-        imagen:"./assets/img/BeatTypeDance.jpg",
-        categoria: {
-            nombre:"Instrumentales",
-            id: "instrumentales"
-        },
-        precio: 30
-    },
-    {
-        id: "producto-02",
-        titulo: "Beat Type House",
-        imagen:"./assets/img/BeatTypeHouse.jpg",
-        categoria: {
-            nombre:"Instrumentales",
-            id: "instrumentales"
-        },
-        precio: 30
-    },
-    {
-        id: "producto-03",
-        titulo: "BeatTypePop",
-        imagen:"./assets/img/BeatTypePop.jpg",
-        categoria: {
-            nombre:"Instrumentales",
-            id: "instrumentales"
-        },
-        precio: 30
-    },
-    {
-        id: "producto-04",
-        titulo: "Beat Type Rap",
-        imagen:"./assets/img/BeatTypeRap.jpg",
-        categoria: {
-            nombre:"Instrumentales",
-            id: "instrumentales"
-        },
-        precio: 30
-    },
-    {
-        id: "producto-05",
-        titulo: "Beat Type Regeton",
-        imagen:"./assets/img/BeatTypeRegeton.jpg",
-        categoria: {
-            nombre:"Instrumentales",
-            id: "instrumentales"
-        },
-        precio: 30
-    },
-    {
-        id: "producto-06",
-        titulo: "Beat Type Rock",
-        imagen:"./assets/img/BeatTypeRock.jpg",
-        categoria: {
-            nombre:"Instrumentales",
-            id: "instrumentales"
-        },
-        precio: 30
-    },
-    {
-        id: "producto-07",
-        titulo: "Master",
-        imagen:"./assets/img/Master.jpg",
-        categoria: {
-            nombre:"Producciones",
-            id: "producciones"
-        },
-        precio: 30
-    },
-    {
-        id: "producto-08",
-        titulo: "Promocion",
-        imagen:"./assets/img/Promocion.jpg",
-        categoria: {
-            nombre:"Promociones",
-            id: "promociones"
-        },
-        precio: 30
-    },
-    {
-        id: "producto-09",
-        titulo: "Recording",
-        imagen:"./assets/img/Recording.jpg",
-        categoria: {
-            nombre:"Producciones",
-            id: "producciones"
-        },
-        precio: 30
-    },
-    {
-        id: "producto-10",
-            titulo: "SoundKit Drums",
-        imagen:"./assets/img/SoundKitDrums.jpg",
-        categoria: {
-            nombre:"Soundkit",
-            id: "soundkit"
-        },
-        precio: 30
-    },
-    {
-        id: "producto-11",
-        titulo: "Soundkit Guitar",
-        imagen:"./assets/img/SoundKitGuitar.jpg",
-        categoria: {
-            nombre:"Soundkit",
-            id: "soundkit"
-        },
-        precio: 30
-    },
-    {
-        id: "producto-12",
-        titulo: "Soundkit Synthe",
-        imagen:"./assets/img/SoundKitSynthe.jpg",
-        categoria: {
-            nombre:"Soundkit",
-            id: "soundkit"
-        },
-        precio: 30
-    },
-    {
-        id: "producto-13",
-        titulo: "Soundkit Viento",
-        imagen:"./assets/img/SoundKitViento.jpg",
-        categoria: {
-            nombre:"Soundkit",
-            id: "soundkit"
-        },
-        precio: 30
-    },
-];
+let productos = [];
 
+fetch("./js/productos.json")
+    .then(response => response.json())
+    .then(data => {
+        productos = data;
+        cargarProductos(productos);
+    });
 const contenedorProductos = document.querySelector("#contenedor-productos");
 const botonesCategorias = document.querySelectorAll(".boton-categoria");
 const tituloPrincipal = document.querySelector("#titulo-principal");
@@ -202,6 +77,26 @@ if (productosEnCarritoLS) {
 
 
 function agregarAlCarrito(e){
+    Toastify({
+        text: "Producto agregado",
+        duration: 3000,
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+            background: "linear-gradient(to right, #F23869, #3621BF)",
+            borderRadius: "2rem",
+            textTransform: "uppercase",
+            fontSize: ".75rem"
+        },
+        offset: {
+            x: "1.5rem", 
+            y: "1.5 rem" 
+        },
+        onClick: function(){} // Callback after click
+    }).showToast();
+
     const idBoton = e.currentTarget.id;
     const productoAgregado = productos.find( producto => producto.id === idBoton);
 
