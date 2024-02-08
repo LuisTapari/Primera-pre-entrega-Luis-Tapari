@@ -10,7 +10,7 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box; 
+    box-sizing: border-box;
     font-family: 'Dosis', sans-serif;
 }
 h1 ,h2 ,h3 ,h4 ,h5 ,h6 ,p ,a ,input ,textarea ,ul {
@@ -240,6 +240,104 @@ main{
     text-transform: uppercase;
     cursor: pointer;
 }
+
+.header-mobile{
+    display: none;
+}
+.close-menu {
+    display: none;
+}
 .disabled{
     display: none;
+}
+
+/* Media Queries */
+@media screen and (max-width: 850px){
+    .contenedor-productos{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+@media screen and (max-width: 675px){
+    .contenedor-productos{
+        grid-template-columns: 1fr 1fr;
+    }
+}
+@media screen and (max-width: 600px) {
+    .wrapper {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+    aside {
+        position: fixed;
+        z-index: 9;
+        background-color: var(--clr-main);
+        left: 0;
+        box-shadow: 0 0 0 100vmax rgba(0, 0, 0, .75);
+        transform: translateX(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: .2s;
+    }
+    .aside-visible {
+        transform: translateX(0);
+        opacity: 1;
+        visibility: visible;
+    }
+    .boton-menu.active::before,
+    .boton-menu.active::after {
+        display: none;
+    }
+    main {
+        margin: 1rem;
+        padding: 2rem;
+    }
+    .contenedor-productos {
+        grid-template-columns: 1fr 1fr;
+    }
+    .header-mobile {
+        padding: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .header-mobile .logo{
+        color: var(--clr-pink);
+    }
+    .open-menu, .close-menu {
+        background-color: transparent;
+        color: var(--clr-blue);
+        border: 0;
+        font-size: 2rem;
+        cursor: pointer;
+    }
+    .close-menu {
+        display: block;
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+    }
+    /* .carrito-producto {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+        gap: 1rem;
+    } */
+    .carrito-producto{
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        padding: .5rem;
+    }
+    .carrito-producto-subtotal {
+        display: none;
+    }
+    .carrito-acciones {
+        flex-wrap: wrap;
+    }
+}
+@media screen and (max-width: 400px){
+    .contenedor-productos{
+        grid-template-columns: 1fr;
+    }
 }
